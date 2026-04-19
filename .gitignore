@@ -5,3 +5,20 @@ terraform.tfstate.backup
 __pycache__/
 *.pyc
 .env
+.env
+*.tfstate*
+.terraform/
+# ACR Secrets - DO NOT COMMIT
+gitops-repo/acr-secret-dev.yaml
+gitops-repo/acr-secret-prod.yaml
+gitops-repo/acr-secret-staging.yaml
+acr-secret.yaml
+
+# Terraform state files
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+
+# Environment files
+.env

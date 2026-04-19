@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-gitops
+  namespace: staging
+  labels:
+    app: fastapi-gitops
+    environment: staging
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fastapi-gitops
+  template:
+    metadata:
+      labels:
+        app: fastapi-gitops
+        environment: staging
+    spec:
+      containers:
+      - name: fastapi
+        image: ghaithaksacr2026.azurecr.io/fastapi-gitops:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: ENVIRONMENT
+          value: "staging"
+        - name: APP_VERSION
+          value: "v1.0.0"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      imagePullSecrets:
+      - name: acr-secret
