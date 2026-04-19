@@ -42,7 +42,7 @@ variable "node_count" {
 variable "node_vm_size" {
   description = "VM size for AKS nodes"
   type        = string
-  default     = "Standard_B2s"
+  default     = "standard_b2s_v2"
 }
 
 variable "environment" {
